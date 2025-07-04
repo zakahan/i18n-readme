@@ -1,0 +1,79 @@
+# readme-trans
+A command-line tool to automatically generate multilingual README files using AI translation.
+
+[English](README.md) | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](README_ko.md)
+
+## Installation
+```bash
+# Install with uv (recommended)
+uv add --dev git+https://github.com/zakahan/i18n-readme.git
+
+# Or with pip
+pip install git+https://github.com/zakahan/i18n-readme.git
+```
+
+## Usage
+```bash
+cd /your/project/path  # The project must have a README.md file
+readme-trans run \
+  --base_lang en \  # just to exclude the original README.md language type
+  --api_key your_api_key \
+  --api_model_name doubao-seed-1-6-250615 \
+  --api_base_url https://ark.cn-beijing.volces.com/api/v3 \
+  --lang_list zh,ja,ko
+```
+
+## Parameter Description
+- `--base_path`: Path to the base README file (default: `README.md`)
+- `--base_lang`: Base language of the original README (default: `en`, supports: zh, en, ja, ko, fr, de, es, ru, ar, pt, it, hi, bn, pa, jv, id, ms)
+- `--api_key`: API key for translation service (reads from `API_KEY` environment variable if not provided)
+- `--api_model_name`: Name of the AI model to use (required, reads from `API_MODEL_NAME` environment variable if not provided)
+- `--api_base_url`: Base URL for the API (reads from `API_BASE_URL` environment variable if not provided)
+- `--lang_list`: Comma-separated list of target languages (default: `zh,en,ja,ko`)
+
+## Supported Languages
+This tool currently supports translation into the following languages: 
+(In fact, it depends on what languages your model supports. Therefore, the language capabilities are fully dependent on the model capabilities. If you think there is a problem with the translation, please don't blame me, orz)
+- Chinese (zh)
+- English (en)
+- Japanese (ja)
+- Korean (ko)
+- French (fr)
+- German (de)
+- Spanish (es)
+- Russian (ru)
+- Arabic (ar)
+- Portuguese (pt)
+- Italian (it)
+- Hindi (hi)
+- Bengali (bn)
+- Punjabi (pa)
+- Javanese (jv)
+- Indonesian (id)
+- Malay (ms)
+
+## Output
+Translated files will be generated in the current directory with the format: `README_{lang}.md`
+Example: `README_zh.md`, `README_ja.md`
+
+## Environment Variables
+You can configure API credentials using environment variables instead of command-line arguments:
+```bash
+# Set API key
+export API_KEY=your_api_key
+
+# Set model name
+export API_MODEL_NAME=doubao-seed-1-6-250615
+
+# Set API base URL (optional)
+export API_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+```
+
+### Instructions
+The current model call is based on litellm and the OpenAI API mode, so the OpenAI format is used by default for the call.
+
+## What's Next
+- Support for `diff` and `overwrite` modes
+- Batch processing of multiple documentation files
+- Custom translation prompts
+- Translation quality improvements
