@@ -10,7 +10,8 @@ dependencies = [
 ]
 
 [project.scripts]
-readme-trans = "i18n_readme.cli:main"
+i18n_readme = "i18n_readme.cli:main"
+i18n-readme = "i18n_readme.cli:main"
 
 [dependency-groups]
 dev = [
